@@ -7,7 +7,7 @@ there is single login page for admin and consumer, the admin user will be redire
 by default on registering the user will be consumer the role to admin could only be changed by previous admin users
 initially there are two admin users
 credentials of admin login :
-email : "yatin62152gmail.com"  password : "123456789"
+email : "yatin6215gmail.com"  password : "123456789" ,
 email : "pratyush@gmail.com"   password : "123456789"
 
 
