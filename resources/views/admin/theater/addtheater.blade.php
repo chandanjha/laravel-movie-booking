@@ -45,7 +45,7 @@
             <div class="form-group col-8">
                 <label for="address">Address</label>
 
-                <input class="form-control" type="text" name="address" placeholder="Enter Address" id="password" required>
+                <input class="form-control" type="text" name="address" placeholder="Enter Address" id="password" value="{{ old('address') }}"required>
 
                 @error('address')
                 <div class="alert alert-danger" role="alert">
@@ -62,28 +62,5 @@
         </form>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#state_id').on('change', function() {
-                var country_id = this.value;
-                $("#state_id").html('');
-                $.ajax({
-                    url: "{{url('getCity')}}",
-                    type: "POST",
-                    data: {
-                        country_id: country_id,
-                        _token: '{{csrf_token()}}'
-                    },
-                    dataType: 'json',
-                    success: function(result) {
-                        $('#city_id').html('<option value="">Select City</option>');
-                        $.each(result.states, function(key, value) {
-                            $("#city_id").append('<option value="' + value.id + '">' + value.name + '</option>');
-                        });
-                    }
-                });
-            });
-            
-        });
-    </script>
+
 </x-layout>

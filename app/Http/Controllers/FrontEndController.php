@@ -32,7 +32,7 @@ class FrontEndController extends Controller
 
 
     public function showMovie($id) {
-        $movie = Movie::find($id)->with('genre','cast')->first();
+        $movie = Movie::with('genre','cast')->find($id);;
         return view('viewmovie',[
             'movie' => $movie
         ]);
