@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ScreenController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\ShowController;
 use App\Http\Controllers\TheaterController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -93,5 +94,11 @@ Route::group(['middleware' => ['auth','adminrole']], function() {
     Route::post('addcast', [CastController::class, 'createCast'])->name('addcastpost');
     Route::get('deletecast/{id}', [CastController::class, 'deleteCast'])->name('deletecast');
 
-
+     //routes for show crud
+    Route::get('addshow',[ShowController::class, 'addShow'])->name ('addshowget');
+    Route::post('addshow',[ShowController::class, 'createShow'])->name ('addshowpost');
+    Route::get('allshow',[ShowController::class, 'allShow'])->name ('allshow'); 
+    Route::get('editshow/{id}', [ShowController::class, 'editShow'])->name('editshow');
+    Route::post('editshow/{id}', [ShowController::class, 'updateShow'])->name('editshowpost');
+    Route::get('deleteshow/{id}', [ShowController::class, 'deleteshows'])->name('deleteshow');
 });
