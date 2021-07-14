@@ -95,6 +95,7 @@
                 <label for="movie_poster">Movie Poster</label>
 
                 <input class="form-control" type="file" name="movie_poster" value="{{ $movie->movie_poster }}" id="movie_poster"  >
+                
                 @error('movie_poster')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}

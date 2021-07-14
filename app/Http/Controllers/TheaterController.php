@@ -60,7 +60,7 @@ class TheaterController extends Controller
 
         if(count($checkDuplicate) > 0){
             throw ValidationException::withMessages([
-                'name' => 'Allready exits'
+                'name' => 'Already exits'
             ]);
         }
 

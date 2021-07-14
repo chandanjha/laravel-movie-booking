@@ -64,7 +64,17 @@
             <div class="form-group col-8">
                 <label for="genre_id">Genre</label>
                 <select class="form-control" name="genre_id" id="genre_id">
-                    <option value="">Select Genre</option>
+                    @if(old('release_date'))
+                        @foreach($genres as $genre)
+                            @if($genre->id == old('genre_id'))
+                            <option value="{{ $genre->id }}">{{ ucwords($genre->name) }}</option>
+                            @endif
+                        @endforeach
+                    @else
+                    
+                    <option value="">Select  Genre</option>
+                    @endif
+                    <option value="" value="old('genre_id') }}">{{ old('genre_id') }} Select  Genre</option>
                     @foreach($genres as $genre)
                     <option value="{{ $genre->id }}">{{ ucwords($genre->name) }}</option>
                     @endforeach                    
@@ -81,8 +91,8 @@
             <div class="form-group col-4">
                 <label for="movie_banner">Movie Banner</label>
 
-                <input class="form-control" type="file" name="movie_banner" id="movie_banner"   required>
-
+                <input class="form-control" type="file" name="movie_banner" id="movie_banner" required>
+                
                 @error('movie_banner')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
@@ -94,8 +104,7 @@
             <div class="form-group col-4">
                 <label for="movie_poster">Movie Poster</label>
 
-                <input class="form-control" type="file" name="movie_poster" id="movie_poster"  required>
-
+                <input class="form-control" type="file" name="movie_poster" id="movie_poster" required>
                 @error('movie_poster')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}

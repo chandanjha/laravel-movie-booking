@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
+use function PHPUnit\Framework\isNull;
+
 class MovieController extends Controller
 {
 
@@ -134,9 +136,13 @@ class MovieController extends Controller
             'genre_id' => 'required|exists:genres,id',
             'duration' => 'required',
             'release_date' => 'required',
-           
+            'movie_banner' => 'image|mimes:jpg,jpeg,gif,png',
+            'movie_poster' => 'image|mimes:jpg,jpeg,gif,png'
 
         ]);
+
+       
+       
 
 
         //validation for the image
@@ -152,30 +158,39 @@ class MovieController extends Controller
             ]);
         }
 
-        // if($attributes['movie_banner'] == "")
-        // {
-        //     'movie_banner' => '',
-        //     'movie_poster' => ''
+        if(isset($attributes['movie_banner'])) {
+            $movie_banner = file($attributes['movie_banner']);
+            $banner_name = rand(1000,9999).'.'.$attributes['movie_banner']->extension();
+            $attributes['movie_banner']->move(public_path('movieimage'),$banner_name);
+            
+            $attributes['movie_banner'] = $banner_name;
+        }
+        else 
+        {
+            $attributes['movie_banner'] = $oldMovie->movie_banner;
+        }
 
-            // //converts the image to the file format
-            // $movie_banner = file($attributes['movie_banner']);
-            // $movie_poster = file($attributes['movie_poster']);
+        if(isset($attributes['movie_poster'])) {
+            $movie_poster = file($attributes['movie_poster']);
 
 
-            // $banner_name = rand(1000,9999).'.'.$attributes['movie_banner']->extension();
-            // $poster_name = rand(1000,9999).'.'.$attributes['movie_poster']->extension();
+        
+        $poster_name = rand(1000,9999).'.'.$attributes['movie_poster']->extension();
 
-            // $attributes['movie_banner']->move(public_path('movieimage'),$banner_name);
-            // $attributes['movie_poster']->move(public_path('movieimage'),$poster_name);
+        
+        $attributes['movie_poster']->move(public_path('movieimage'),$poster_name);
 
-            // $attributes['movie_banner'] = $banner_name;
-            // $attributes['movie_poster'] = $poster_name;
-        // }
-        // else
-        // {
-        //     $attributes['movie_banner'] = $oldMovie->movie_banner;
-        //     $attributes['movie_poster'] = $oldMovie->movie_poster;
-        // }
+        $attributes['movie_poster'] = $poster_name;
+        }
+        else {
+            $attributes['movie_poster'] = $oldMovie->movie_poster;
+        }
+
+        //converts the image to the file format
+        
+        
+        
+       
 
         //update the record
         $oldMovie->update($attributes);
