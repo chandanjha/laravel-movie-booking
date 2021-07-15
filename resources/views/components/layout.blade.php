@@ -22,7 +22,8 @@
   <!-- Custom styles -->
   <link href="/css/style.css" rel="stylesheet">
   <link href="/css/style-responsive.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/css/homeheader.css">
+  <link rel="stylesheet" href="/css/homeheader.css">
+  <link rel="stylesheet" href="/css/slideshow.css">
 </head>
 <body>
     <!-- container section start -->
@@ -45,6 +46,7 @@
     <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
     <!--custome script for all page-->
     <script src="/js/scripts.js"></script>
+    <script src="/js/slideshow.js"></script>
     <script>
         $(document).ready(function() {
             $('#state_id').on('change', function() {
