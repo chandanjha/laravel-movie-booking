@@ -53,7 +53,7 @@
                 </ul>
             </li>
 
-            <li class="sub-menu">
+                <li class="sub-menu">
                 <a href="javascript:;" class="">
                     <i class="icon_document_alt"></i>
                     <span>Show</span>
@@ -65,7 +65,6 @@
                                         
                 </ul>
             </li>
-            
 
         </ul>
         <!-- sidebar menu end-->

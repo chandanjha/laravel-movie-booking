@@ -12,6 +12,7 @@ use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\ShowController;
 use App\Http\Controllers\TheaterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\bookshowcontroller;
 use App\Models\User;
 
 //route for front end users 
@@ -19,10 +20,16 @@ Route::get('/', [FrontEndController::class, 'home'])->name('home');
 Route::get('viewmore/{slug}', [FrontEndController::class, 'showAll'])->name('showall');
 Route::get('viewmovie/{id}', [FrontEndController::class, 'showMovie'])->name('showMovie');
 
+
+// routes for booking
+Route::get('bookshow', [BookshowController::class, 'bookshow'])->middleware('auth')->name('bookshow');
+Route::get('bookslot/{id}', [BookshowController::class, 'bookslot'])->middleware('auth')->name('bookslot');
+
+
 //routes for register
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('register', [RegisterController::class, 'store'])->middleware('guest')->name('registerpost');
-Route::get('createpassword', [RegisterController::class, 'verify'])->middleware(['guest','pageinfo'])->name('createpassowrd');
+Route::get('createpassword', [RegisterController::class, 'verify'])->middleware(['guest', 'pageinfo'])->name('createpassowrd');
 Route::post('createpassword', [RegisterController::class, 'getverify'])->middleware('guest')->name('createpassowrdpost');
 
 
@@ -36,18 +43,18 @@ Route::get('logout', [SessionsController::class, 'destroy'])->middleware('auth')
 //routes for forgot passowrd
 Route::get('forgot_password', [ForgotPasswordController::class, 'forgot'])->middleware('guest')->name('forgotpassowrd');
 Route::post('forgot_password', [ForgotPasswordController::class, 'passreset'])->middleware('guest')->name('forgotpasswordpost');
-Route::get('newpassword', [ForgotPasswordController::class, 'verify'])->middleware(['guest','pageinfo'])->name('newpassowrd');
+Route::get('newpassword', [ForgotPasswordController::class, 'verify'])->middleware(['guest', 'pageinfo'])->name('newpassowrd');
 Route::post('newpassword', [ForgotPasswordController::class, 'getverify'])->middleware('guest')->name('newpasswordpost');
 
 
 
 
 //group routes for all admin pages the middleware adminrole is defined in route named checkrole
-Route::group(['middleware' => ['auth','adminrole']], function() {
+Route::group(['middleware' => ['auth', 'adminrole']], function () {
     Route::get('admin_index', function () {
         return view('admin.index');
     })->name('adminhome');
-    
+
     //routes to viw and edit my profile
     Route::get('myprofile', [UserController::class, 'viewProfile'])->name('myprofile');
     Route::post('editprofile/{id}', [UserController::class, 'editProfile'])->name('editprofile');
@@ -81,7 +88,7 @@ Route::group(['middleware' => ['auth','adminrole']], function() {
     Route::post('/editscreen/{id}', [ScreenController::class, 'updateScreen'])->name('editscreenpost');
 
     //routes for movie crud
-    Route::get('allmovies', [MovieController::class, 'allMovie'])->name('allmovies');  
+    Route::get('allmovies', [MovieController::class, 'allMovie'])->name('allmovies');
     Route::get('addmovie', [MovieController::class, 'addMovie'])->name('addmovie');
     Route::post('addmovie', [MovieController::class, 'createMovie'])->name('addmoviepost');
     Route::get('deletemovie/{id}', [MovieController::class, 'deleteMovie'])->name('deletemovie');
@@ -94,11 +101,12 @@ Route::group(['middleware' => ['auth','adminrole']], function() {
     Route::post('addcast', [CastController::class, 'createCast'])->name('addcastpost');
     Route::get('deletecast/{id}', [CastController::class, 'deleteCast'])->name('deletecast');
 
-     //routes for show crud
-    Route::get('addshow',[ShowController::class, 'addShow'])->name ('addshowget');
-    Route::post('addshow',[ShowController::class, 'createShow'])->name ('addshowpost');
-    Route::get('allshow',[ShowController::class, 'allShow'])->name ('allshow'); 
+    //routes for show crud
+    Route::get('addshow', [ShowController::class, 'addShow'])->name('addshowget');
+    Route::post('addshow', [ShowController::class, 'createShow'])->name('addshowpost');
+    Route::get('allshow', [ShowController::class, 'allShow'])->name('allshow');
     Route::get('editshow/{id}', [ShowController::class, 'editShow'])->name('editshow');
     Route::post('editshow/{id}', [ShowController::class, 'updateShow'])->name('editshowpost');
     Route::get('deleteshow/{id}', [ShowController::class, 'deleteshows'])->name('deleteshow');
+    Route::post('getscreen', [ShowController::class, 'getScreen'])->name('getScreen');
 });
