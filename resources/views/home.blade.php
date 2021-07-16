@@ -4,7 +4,34 @@
 
 
     <div class="frontend">
-        
+        <div class="row" id="frontslide">
+
+            <div class="slideshow-container">
+
+                <?php $i = 0; ?>
+                @foreach($movies as $movie)
+                @if($movie->release_date <= $date)
+                    <?php $i = $i + 1 ?>
+                    <div class="mySlides">
+                        <a href="/viewmovie/{{ $movie->id }}"><img src="/movieimage/{{ $movie->movie_poster }}" alt="" style="width:100%"></a>
+                        <div class="text"><a href="/viewmovie/{{ $movie->id }}">{{ ucwords($movie->name) }}</a></div>
+                    </div>
+                @endif
+                @if($i>2)
+                    @break
+                @endif
+                @endforeach
+                
+
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            </div>
+            <br>
+
+
+        </div>
+
         <div class="row" style="background-color: #fff;">
             <?php $i = 0; ?>
             <h1>Released Movies</h1>
@@ -19,7 +46,7 @@
                 <h4><a href="/viewmovie/{{ $movie->id }}">{{ $movie->name }}</a></h4>
             </div>
             @endif
-            @if($i>5)
+            @if($i>3)
             @break
             @endif
             @endforeach
@@ -39,7 +66,7 @@
                 <h4><a href="/viewmovie/{{ $movie->id }}">{{ $movie->name }}</a></h4>
             </div>
             @endif
-            @if($i>5)
+            @if($i>3)
             @break
             @endif
             @endforeach
