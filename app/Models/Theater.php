@@ -29,4 +29,9 @@ class Theater extends Model
     public function states() {
         return $this->belongsTo(States::class);
     }
+
+    public function show(){
+        return $this->hasMany(Show::class);
+    }
+
 }

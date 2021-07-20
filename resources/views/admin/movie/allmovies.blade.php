@@ -33,46 +33,54 @@
                 @foreach($movies as $movie)
                 <tr>
                     <td>{{ $i=$i+1 }}</td>
-                    <td>{{ $movie->name }}</td>
+                    <td>{{ ucwords($movie->name) }}</td>
                     <td>
                     @foreach($movie->cast as $cast)
                       @if($cast->type == "actor" )
-                        {{ $cast->name }}
+                        {{ ucwords($cast->name) }} ,
                       @endif
                     @endforeach
 
 
-                    <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                    <div>
+                        <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                      </div> 
                     </td>
                     <td>
                     @foreach($movie->cast as $cast)
                       @if($cast->type == "actress" )
-                        {{ $cast->name }}
+                        {{ ucwords($cast->name) }} ,
                       @endif
                     @endforeach
-                    <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                    <div>
+                        <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                      </div> 
 
                     </td>
                     <td>
                     @foreach($movie->cast as $cast)
                       @if($cast->type == "director" )
-                        {{ $cast->name }}
+                        {{ ucwords($cast->name) }} ,
                       @endif
                     @endforeach
-                    <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                      <div>
+                        <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                      </div>  
                     </td>
                     <td>
                     @foreach($movie->cast as $cast)
                       @if($cast->type == "producer" )
-                        {{ $cast->name }}
+                        {{ ucwords($cast->name) }} ,
                       @endif
                     @endforeach
-                    <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                      <div>
+                        <a class="btn btn-primary btn-sm" href="/addcast/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>
+                      </div> 
                     </td>
                     <td>{{ $movie->rating }}</td>
                     <td>{{ $movie->duration }}</td>
                     <td>{{ $movie->release_date }}</td>
-                    <td>{{ $movie->genre->name }}</td>
+                    <td>{{ ucwords($movie->genre->name) }}</td>
                     <td><img src="/movieimage/{{ $movie->movie_banner }}" alt="" width="100" height="100"></td>
                     <td>
                         <a class="btn btn-success btn-sm" href="editmovie/{{ $movie->id }}"><i class="icon_plus_alt2"></i></a>

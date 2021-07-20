@@ -14,4 +14,25 @@ class Show extends Model
     protected $guarded = [];
     public $timestamps = false;
     
+    public function theater()
+    {
+        return $this->belongsTo(Theater::class);
+    }
+
+    public function screen() {
+        return $this->belongsTo(Screen::class);
+    }
+
+    public function movie() {
+        return $this->belongsTo(Movie::class);
+    }
+
+    public function seat() {
+        return $this->hasMany(Seat::class);
+    }
+
+    public function book() {
+        return $this->hasMany(Book::class);
+    }
+    
 }
