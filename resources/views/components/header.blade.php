@@ -10,6 +10,7 @@
       @if(auth()->user()->user_role == "admin")
         <a href="/admin_index">Admin</a>
       @endif
+      <a href="/mybookings">My Bookings</a>
       <a href="/logout">Logout</a>
     @else
       <a href="/register">Register</a>

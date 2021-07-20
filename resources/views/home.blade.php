@@ -43,7 +43,7 @@
                     <a href="/viewmovie/{{ $movie->id }}"><img src="/movieimage/{{ $movie->movie_banner }}" alt="" width="100" height="100"></a>
                 </div>
 
-                <h4><a href="/viewmovie/{{ $movie->id }}">{{ $movie->name }}</a></h4>
+                <h4><a href="/viewmovie/{{ $movie->id }}">{{ ucwords($movie->name) }}</a></h4>
             </div>
             @endif
             @if($i>3)

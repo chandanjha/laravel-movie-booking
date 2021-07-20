@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CastController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ForgotPasswordController;
@@ -18,6 +19,12 @@ use App\Models\User;
 Route::get('/', [FrontEndController::class, 'home'])->name('home');
 Route::get('viewmore/{slug}', [FrontEndController::class, 'showAll'])->name('showall');
 Route::get('viewmovie/{id}', [FrontEndController::class, 'showMovie'])->name('showMovie');
+Route::get('showslots/{id}', [FrontEndController::class, 'showSlot'])->middleware('auth')->name('showSlot');
+Route::get('/book/{id}',[FrontEndController::class, 'bookPage'])->middleware('auth')->name('book');
+Route::post('book/{id}', [FrontEndController::class, 'confirmBook'])->middleware('auth')->name('confirmbook');
+Route::get('mybookings', [FrontEndController::class, 'myBookings'])->middleware('auth')->name('myBookings');
+Route::get('cancelticket/{id}', [FrontEndController::class, 'cancelTicket'])->middleware('auth')->name('cancelTicket');
+
 
 //routes for register
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -94,11 +101,16 @@ Route::group(['middleware' => ['auth','adminrole']], function() {
     Route::post('addcast', [CastController::class, 'createCast'])->name('addcastpost');
     Route::get('deletecast/{id}', [CastController::class, 'deleteCast'])->name('deletecast');
 
-     //routes for show crud
+
+    //routes for show crud
     Route::get('addshow',[ShowController::class, 'addShow'])->name ('addshowget');
     Route::post('addshow',[ShowController::class, 'createShow'])->name ('addshowpost');
+    Route::post('getscreen',[ShowController::class, 'getscreen'])->name ('getscreen');
     Route::get('allshow',[ShowController::class, 'allShow'])->name ('allshow'); 
     Route::get('editshow/{id}', [ShowController::class, 'editShow'])->name('editshow');
     Route::post('editshow/{id}', [ShowController::class, 'updateShow'])->name('editshowpost');
     Route::get('deleteshow/{id}', [ShowController::class, 'deleteshows'])->name('deleteshow');
+
+
+    Route::get('allbookings', [BookController::class, 'allBookings'])->name('allbookings');
 });

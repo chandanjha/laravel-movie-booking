@@ -9,13 +9,8 @@
             @csrf
             <label for="theater_id">Theater</label>
 
-            <select name="theater_id" class="form-control" id="Theater_id">
-                @foreach($theaters as $row)
-                @if($row->id == $shows->theater_id)
-                <option value="{{$shows->theater_id}}">{{$row->name}}</option>
-                @endif
-                @endforeach
-
+            <select name="theater_id" class="form-control" id="theater_id">
+                <option value="{{$shows->theater_id}}">{{$shows->theater->name}}</option>
                 @foreach($theaters as $row)
                 <option value="{{$row->id}}">{{$row->name}}</option>
                 @endforeach
@@ -30,14 +25,8 @@
 
             <label for="screen_id">Screen</label>
 
-            <select name="screen_id" class="form-control" id="schreen_id">
-                <option value="">Select Screen</option>
-                <?php $i = 0; ?>
-                @foreach($screen as $row)
-                <?php $i = $i + 1; ?>
-                <option value="{{$row->id}}">Screen {{ $i }}
-                    ( {{ ($row->gold_row*$row->gold_column)+($row->platinum_row*$row->platinum_column)+($row->normal_row*$row->normal_column) }} )</option>
-                @endforeach
+            <select name="screen_id" class="form-control" id="screen_id">
+                <option value="$shows->screen_id">{{ $shows->screen_id }}</option>
             </select>
             @error('screen_id')
             <div class="alert alert-danger" role="alert">

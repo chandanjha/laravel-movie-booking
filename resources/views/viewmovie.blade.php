@@ -1,9 +1,13 @@
 <x-layout>
     <x-header />
     <div class="frontend">
+
+
         <div class="row">
             <img src="/movieimage/{{$movie->movie_poster}}" alt="" width="90%" height="300px">
         </div>
+
+
         <div class="row" id="moviecontent">
             <div class="col-md-6">
                 <h2>Name: <i>{{ucwords($movie->name) }}</i></h2>
@@ -50,6 +54,12 @@
                 @endforeach
                 
                 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="pull-right">
+                <a class="btn btn-primary btn-lg" href="/showslots/{{ $movie->id }}">Shows</a>
             </div>
         </div>
     </div>

@@ -44,7 +44,7 @@
                       @endif
                     @endforeach
                     </td>
-                    <td>{{ $theater->address }}</td>
+                    <td>{{ substr($theater->address, 0, 60) }} ...</td>
                     <td><a class="btn btn-primary btn-sm" href="allscreen/{{ $theater->id }}">Manage</a></td>
                     <td>
                         <a class="btn btn-success btn-sm" href="edittheater/{{ $theater->id }}"><i class="icon_plus_alt2"></i></a>
