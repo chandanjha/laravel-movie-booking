@@ -4,57 +4,61 @@
     {{-- Add Show Page --}}
     <div style="width: 50%; margin:auto; padding: 4%; background-color:darkgrey;color:black; height:auto;">
         <h1 style="text-align:center;">Show</h1>
-   
+
         <form method="POST" action="/addshow" class="mt-10" enctype="multipart/form-movies">
             @csrf
             <label for="theater_id">Theater</label>
-            
-            <select name="theater_id" class="form-control"  id="Theater_id">
-            <option value="">Select Theater</option>
+
+            <select name="theater_id" class="form-control" id="theater_id">
+                <option value="">Select Theater</option>
                 @foreach($theaters as $row)
-                <option value = "{{$row->id}}">{{$row->name}}</option>
+                <option value="{{$row->id}}">{{$row->name}}</option>
                 @endforeach
             </select>
             @error('theater_id')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-            
-            <br>    
-        
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+            @enderror
+
+            <br>
+
             <label for="screen_id">Screen</label>
-            
-            <select name="screen_id" class="form-control"  id="schreen_id">
+
+            <select name="screen_id" class="form-control" id="screen_id">
                 <option value="">Select Screen</option>
-                <?php $i = 0; ?>
-                @foreach($screen as $row)
-                <?php $i = $i + 1; ?>
-                <option value = "{{$row->id}}">Screen {{ $i }} 
-                 ( {{ ($row->gold_row*$row->gold_column)+($row->platinum_row*$row->platinum_column)+($row->normal_row*$row->normal_column) }} )</option>
-                @endforeach
             </select>
             @error('screen_id')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+            @enderror
             <br>
 
             <label for="movie_id">Movie</label>
-            <select name="movie_id" class="form-control"  id="movie_id">
-            <option value="">Select Movie</option>
+            <select name="movie_id" class="form-control" id="movie_id">
+                <option value="">Select Movie</option>
                 @foreach($movies as $row)
-                <option value = "{{$row->id}}">{{$row->name}}</option>
+                <option value="{{$row->id}}">{{$row->name}}</option>
                 @endforeach
             </select>
             @error('movie_id')
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+            @enderror
+            <br>
+
+            <div class="form-group col-8">
+                <label for="show_date">Show Date</label>
+                <input type="date" name="show_date" class="form-control" id="show_date">
+                @error('show_date')
                 <div class="alert alert-danger" role="alert">
                     {{ $message }}
                 </div>
                 @enderror
-            <br> 
-            
+            </div>
+
             <label for="slot_id">Slot</label>
             <select class="form-control" name="slot" id="slot-id">
                 <option value="">Select Slot</option>
@@ -65,26 +69,26 @@
             </select>
 
             @error('slot')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-            
+            <div class="alert alert-danger" role="alert">
+                {{ $message }}
+            </div>
+            @enderror
+
             <br>
 
 
 
-            
+
 
             <div class="form-group">
                 <button class="btn btn-primary btn-sm" type="submit">Add</button>
                 <button class="btn btn-danger btn-sm" type="reset">Reset</button>
             </div><br>
 
-        </form> 
-       
-        
-       
-    </form>
+        </form>
+
+
+
+        </form>
     </div>
 </x-layout>

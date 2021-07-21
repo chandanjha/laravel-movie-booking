@@ -19,7 +19,9 @@ class CreateShowTable extends Migration
             $table->foreignId('movie_id')->references('id')->on('movies')->onDelete('cascade');
             $table->foreignId('screen_id')->references('id')->on('screens')->onDelete('cascade');
             $table->string('slot');
-            $table->timestamps();
+            $table->date('show_date');
+            $table->integer('seats_available');
+            $table->dateTime('created_at');
         });
     }
 

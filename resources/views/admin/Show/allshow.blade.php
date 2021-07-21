@@ -18,11 +18,11 @@
                 <tr>
                   <td>S.no</td>
                   <td>Theater</td>
-                  <td>Schreen Name</td>
+                  <td>Screen Name</td>
                   <td>Movie</td>
                   <td>Date</td>
                   <td>Slot</td>
-
+                  <td>Seats Available</td>
                   <td><i class="icon_cogs"></i>Action</td>
                 </tr>
                 <?php $i = 0 ?>
@@ -31,18 +31,30 @@
                 @foreach($shows as $show)
                 <tr>
                   <td>{{ $i=$i+1 }}</td>
-                  <td>{{ $show->theater_id }}</td>
-                  <td>{{ $show->screen_id }}</td>
-                  <td>{{ $show->movie_id }}</td>
-                  <td>{{ $show->created_at}}</td>
-                  <td>{{ $show->slot }}</td>
+                  <td>{{ ucwords($show->theater->name) }}</td>
+                  <td>Screen {{ $show->screen_id }}</td>
+                  <td>{{ ucwords($show->movie->name) }}</td>
+                  <td>{{ $show->show_date}}</td>
+                  <td>
+                    @if($show->slot == "slot-1")
+                    <?= "Morning 9-12" ?>
+                    @elseif($show->slot == "slot-2")
+                    <?= "Day 12-3" ?>
+                    @elseif($show->slot == "slot-3")
+                    <?= "Evening 3-6" ?>
+                    @elseif($show->slot == "slot-4")
+                    <?= "Evening 6-9" ?>
 
+                    @else
+                      <?= "not defined" ?>
+                    @endif
+                  </td>
 
+                  <td>{{ $show->seats_available }}</td>
 
                   <td>
                     <a class="btn btn-success btn-sm" href="editshow/{{ $show->id }}"><i class="icon_plus_alt2"></i></a>
-                    <a class="btn btn-danger btn-sm" data-toggle="modal" href="#myModal2"><i class="icon_close_alt2"></i></a>
-                    <x-delete><a style="color:black;" href="/deleteshow/{{ $show->id }}">Confirm</a></x-delete>
+                    <a class="btn btn-danger btn-sm" href="/deleteshow/{{ $show->id }}"><i class="icon_close_alt2"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -50,7 +62,7 @@
             </table>
           </section>
           @else
-          <h1>No Movies Found</h1>
+          <h1>No Shows Found</h1>
           @endif
 
         </div>

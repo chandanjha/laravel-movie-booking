@@ -23,4 +23,8 @@ class Movie extends Model
     public function cast() {
         return $this->hasMany(Cast::class);
     }
+
+    public function show(){
+        return $this->hasMany(Show::class);
+    }
 }

@@ -60,12 +60,26 @@
                     <span class="menu-arrow arrow_carrot-right"></span>
                 </a>
                 <ul class="sub">
-                    <li><a class="" href="/addshow">Add Show</a></li>
                     <li><a class="" href="/allshow">All Show</a></li>
+                    <li><a class="" href="/addshow">Add Show</a></li>
+                    
                                         
                 </ul>
             </li>
             
+            <li class="sub-menu">
+                <a href="javascript:;" class="">
+                    <i class="icon_document_alt"></i>
+                    <span>Bookings</span>
+                    <span class="menu-arrow arrow_carrot-right"></span>
+                </a>
+                <ul class="sub">
+                    <li><a class="" href="/allbookings">All Booking</a></li>
+                    
+                    
+                                        
+                </ul>
+            </li>
 
         </ul>
         <!-- sidebar menu end-->
