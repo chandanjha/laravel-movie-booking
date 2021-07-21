@@ -21,7 +21,12 @@
                     <h3>Booking Date Time: <i>{{ $booking->booked_at }}</i></h3>
                     <h3>Status:- <i>{{ ucwords($booking->book_status) }}</i></h3>
 
+<<<<<<< HEAD
                     <a class="btn btn-primary btn-lg" onClick="javascript: alert('Are you sure you want to delete user'); " href="/cancelticket/{{ $booking->id }}">Cancel</a>
+=======
+
+                    <a class="btn btn-primary btn-lg" href="/cancelticket/{{ $booking->id }}">Cancel</a>
+>>>>>>> 3b094669decd0218f300bc59e3538eed4818b92d
                 </div>
 
                 @endif

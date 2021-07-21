@@ -44,8 +44,12 @@
                     <td>{{ $screen->normal_row*$screen->normal_column }}</td>
                     <td>
                         <a class="btn btn-success btn-sm" href="/editscreen/{{ $screen->id }}"><i class="icon_plus_alt2"></i></a>
+<<<<<<< HEAD
                         <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete this screen'); " href="/deletescreen/{{ $screen->id }}"><i class="icon_close_alt2"></i></a>
                         
+=======
+                        <a class="btn btn-danger btn-sm" href="/deletescreen/{{ $screen->id }}"><i class="icon_close_alt2"></i></a>
+>>>>>>> 3b094669decd0218f300bc59e3538eed4818b92d
                     </td>
                 </tr>
                 @endforeach

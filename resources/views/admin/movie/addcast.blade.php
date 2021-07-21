@@ -50,7 +50,11 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
+<<<<<<< HEAD
                     <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
+=======
+                    <a class="btn btn-danger btn-sm"  href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>     
+>>>>>>> 3b094669decd0218f300bc59e3538eed4818b92d
                 </td>
             </tr>
             
@@ -70,9 +74,7 @@
                 <input type="hidden" name="type" value="actress">
                 <label for="actress">Actress</label>
 
-                <input class="form-control" type="text" name="name" id="name" placeholder="Enter Movie actress"  >
-
-               
+                <input class="form-control" type="text" name="name" id="name" placeholder="Enter Movie actress"  > 
             </div><br>
             <div class="form-group">
                 <button class="btn btn-primary btn-sm" type="submit">Add</button>
@@ -104,10 +106,13 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
+<<<<<<< HEAD
                 <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
+=======
+                    <a class="btn btn-danger btn-sm"  href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>            
+>>>>>>> 3b094669decd0218f300bc59e3538eed4818b92d
                 </td>
             </tr>
-            
             @endif
             @endforeach
             
@@ -156,7 +161,11 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
+<<<<<<< HEAD
                 <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
+=======
+                    <a class="btn btn-danger btn-sm"  href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>          
+>>>>>>> 3b094669decd0218f300bc59e3538eed4818b92d
                 </td>
             </tr>
             
@@ -208,7 +217,11 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
+<<<<<<< HEAD
                 <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
+=======
+                    <a class="btn btn-danger btn-sm" href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>            
+>>>>>>> 3b094669decd0218f300bc59e3538eed4818b92d
                 </td>
             </tr>
             @endif
