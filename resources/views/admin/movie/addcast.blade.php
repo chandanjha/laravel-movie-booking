@@ -50,8 +50,7 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
-                    <a class="btn btn-danger btn-sm" data-toggle="modal" href="#myModal2"><i class="icon_close_alt2"></i></a>
-                    <x-delete><a style="color:black;"  href="/deletecast/{{ $cast->id }}">Confirm</a></x-delete>             
+                    <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
                 </td>
             </tr>
             
@@ -105,8 +104,7 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
-                    <a class="btn btn-danger btn-sm" data-toggle="modal" href="#myModal2"><i class="icon_close_alt2"></i></a>
-                    <x-delete><a style="color:black;"  href="/deletecast/{{ $cast->id }}">Confirm</a></x-delete>             
+                <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
                 </td>
             </tr>
             
@@ -158,8 +156,7 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
-                    <a class="btn btn-danger btn-sm" data-toggle="modal" href="#myModal2"><i class="icon_close_alt2"></i></a>
-                    <x-delete><a style="color:black;"  href="/deletecast/{{ $cast->id }}">Confirm</a></x-delete>             
+                <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
                 </td>
             </tr>
             
@@ -211,8 +208,7 @@
                 <td>{{ $i=$i+1 }}</td>
                 <td>{{ $cast->name }}</td>
                 <td>
-                    <a class="btn btn-danger btn-sm" data-toggle="modal" href="#myModal2"><i class="icon_close_alt2"></i></a>
-                    <x-delete><a style="color:black;"  href="/deletecast/{{ $cast->id }}">Confirm</a></x-delete>             
+                <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete cast'); " href="/deletecast/{{ $cast->id }}"><i class="icon_close_alt2"></i></a>             
                 </td>
             </tr>
             @endif

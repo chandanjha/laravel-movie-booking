@@ -21,9 +21,7 @@
                     <h3>Booking Date Time: <i>{{ $booking->booked_at }}</i></h3>
                     <h3>Status:- <i>{{ ucwords($booking->book_status) }}</i></h3>
 
-
-                    <a class="btn btn-primary btn-lg" data-toggle="modal" href="#myModal2">Cancel</a>
-                    <x-delete><a style="color:black;" href="/cancelticket/{{ $booking->id }}">Confirm</a></x-delete>
+                    <a class="btn btn-primary btn-lg" onClick="javascript: alert('Are you sure you want to delete user'); " href="/cancelticket/{{ $booking->id }}">Cancel</a>
                 </div>
 
                 @endif
