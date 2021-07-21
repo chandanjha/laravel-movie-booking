@@ -1,1 +1,0 @@
-poster and banner
