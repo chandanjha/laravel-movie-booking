@@ -22,8 +22,7 @@
                     <h3>Status:- <i>{{ ucwords($booking->book_status) }}</i></h3>
 
 
-                    <a class="btn btn-primary btn-lg" data-toggle="modal" href="#myModal2">Cancel</a>
-                    <x-delete><a style="color:black;" href="/cancelticket/{{ $booking->id }}">Confirm</a></x-delete>
+                    <a class="btn btn-primary btn-lg" onClick="javascript: alert('Are you sure you want to cancel booking'); " href="/cancelticket/{{ $booking->id }}">Cancel</a>
                 </div>
 
                 @endif

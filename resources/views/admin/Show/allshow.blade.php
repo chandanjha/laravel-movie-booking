@@ -54,8 +54,7 @@
 
                   <td>
                     <a class="btn btn-success btn-sm" href="editshow/{{ $show->id }}"><i class="icon_plus_alt2"></i></a>
-                    <a class="btn btn-danger btn-sm" data-toggle="modal" href="#myModal2"><i class="icon_close_alt2"></i></a>
-                    <x-delete><a style="color:black;" href="/deleteshow/{{ $show->id }}">Confirm</a></x-delete>
+                    <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete show'); " href="/deleteshow/{{ $show->id }}"><i class="icon_close_alt2"></i></a>
                   </td>
                 </tr>
                 @endforeach
