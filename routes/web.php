@@ -18,6 +18,7 @@ use App\Models\User;
 //route for front end users 
 Route::get('/', [FrontEndController::class, 'home'])->name('home');
 Route::get('viewmore/{slug}', [FrontEndController::class, 'showAll'])->name('showall');
+Route::post('searchresult', [FrontEndController::class, 'searchResult'])->name('search');
 Route::get('viewmovie/{id}', [FrontEndController::class, 'showMovie'])->name('showMovie');
 Route::get('showslots/{id}', [FrontEndController::class, 'showSlot'])->middleware('auth')->name('showSlot');
 Route::get('/book/{id}',[FrontEndController::class, 'bookPage'])->middleware('auth')->name('book');

@@ -34,6 +34,41 @@ class FrontEndController extends Controller
         ]);
     }
 
+    public function searchResult() {
+        $attributes = request()->validate([
+            'search' => 'max:255',
+            'pageinfo' => 'max:255'
+        ]);
+
+        $pageinfo = $attributes['pageinfo'];
+
+
+        if(isset($attributes['search'])) {
+            if($pageinfo == 'released') {
+                $movies = Movie::where('name',$attributes['search'])->where('release_date' , '<=',date('Y-m-d'))->get();
+            }
+            else 
+            {
+                $movies = Movie::where('name',$attributes['search'])->where('release_date' , '>',date('Y-m-d'))->get();
+            }
+            
+        }
+        else
+        {
+            if($pageinfo == 'released') {
+                $movies = Movie::where('release_date' , '<=',date('Y-m-d'))->get();
+            }
+            else {
+                $movies = Movie::where('release_date' , '>',date('Y-m-d'))->get();
+            }
+        }
+
+        return view('allmovies',[
+            'movies' => $movies,
+            'pageinfo' => $pageinfo
+        ]);
+    }
+
 
     public function showMovie($id) {
         $movie = Movie::with('genre','cast')->find($id);
