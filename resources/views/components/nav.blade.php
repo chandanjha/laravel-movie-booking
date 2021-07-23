@@ -66,6 +66,13 @@
                                         
                 </ul>
             </li>
+
+            <li>
+                <a class="" href="/allbookings">
+                    <i class="icon_genius"></i>
+                    <span>All Booking</span>
+                </a>
+            </li>
             
 
         </ul>
