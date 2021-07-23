@@ -48,7 +48,7 @@ class RegisterController extends Controller
         $user['to']=$attributes['email'];
 
         //sending mail using the mail facade
-        Mail::send('email.Otp',$data,function($messages) use ($user){
+        Mail::send('email.otp',$data,function($messages) use ($user){
             $messages->to($user['to']);
             $messages->subject('Otp to Register'); 
         });
