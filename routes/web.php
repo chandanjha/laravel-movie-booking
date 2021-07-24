@@ -18,7 +18,6 @@ use App\Models\User;
 //route for front end users 
 Route::get('/', [FrontEndController::class, 'home'])->name('home');
 Route::get('viewmore/{slug}', [FrontEndController::class, 'showAll'])->name('showall');
-Route::post('searchresult', [FrontEndController::class, 'searchResult'])->name('search');
 Route::get('viewmovie/{id}', [FrontEndController::class, 'showMovie'])->name('showMovie');
 Route::get('showslots/{id}', [FrontEndController::class, 'showSlot'])->middleware('auth')->name('showSlot');
 Route::get('/book/{id}',[FrontEndController::class, 'bookPage'])->middleware('auth')->name('book');
@@ -112,6 +111,8 @@ Route::group(['middleware' => ['auth','adminrole']], function() {
     Route::post('editshow/{id}', [ShowController::class, 'updateShow'])->name('editshowpost');
     Route::get('deleteshow/{id}', [ShowController::class, 'deleteshows'])->name('deleteshow');
 
-
+    // route for all bookings
     Route::get('allbookings', [BookController::class, 'allBookings'])->name('allbookings');
+    Route::get('cancel_booking/{id}', [BookController::class, 'cancelBooking'])->name('cancelbooking');
+    Route::get('confirm_booking/{id}', [BookController::class, 'confirmBooking'])->name('confirmbooking');
 });

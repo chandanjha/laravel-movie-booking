@@ -9,7 +9,7 @@ use App\Models\Show;
 use App\Models\Theater;
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class ShowController extends Controller
 {
@@ -39,9 +39,26 @@ class ShowController extends Controller
             'screen' => $screen
 
         ]);
-        // add to database
+        
 
     }
+
+    public function date(Request $request)
+    {
+        $request->validate([
+            'movie_id'=>'required',
+        ]);
+        $check=Movie::where('movie_id',$request->id)->first();
+        $date=strtotime($check->date);
+        if($date<$request){
+            $data = $request ->all();
+            Show::create($data);
+        }else{
+            return back()-> with ('error date does not matches with release date');
+        }
+            
+        }
+    
 
 
     public function getscreen(Request $request) {
@@ -65,6 +82,7 @@ class ShowController extends Controller
             'show_date' => 'required'
             
         ]);
+
 
         $screen = Screen::where('id', $attributes['screen_id'])->first();
         
@@ -138,8 +156,8 @@ class ShowController extends Controller
          $attributes = request()->validate([
             'theater_id' => 'required|numeric',
             'movie_id' => 'required|numeric',
-            'screen_id' => 'required|numeric',
-            'slot' => 'required',
+            // 'screen_id' => 'required',
+            'slot' => 'required'
 
         ]);
 

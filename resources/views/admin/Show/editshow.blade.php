@@ -37,17 +37,28 @@
 
             <label for="movie_id">Movie</label>
             <select name="movie_id" class="form-control" id="movie_id">
-                <option value="">Select Movie</option>
+                <option value="{{$shows->movie_id}}">{{$shows->movie->name}}</option>
                 @foreach($movies as $row)
                 <option value="{{$row->id}}">{{$row->name}}</option>
                 @endforeach
             </select>
+
             @error('movie_id')
             <div class="alert alert-danger" role="alert">
                 {{ $message }}
             </div>
             @enderror
             <br>
+
+            <div class="form-group col-8">
+                <label for="show_date" >Show Date</label>
+                <input type="date" name="show_date" class="form-control" id="show_date" value="{{$shows->show_date}}">
+                @error('show_date')
+                <div class="alert alert-danger" role="alert">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
 
             <label for="slot_id">Slot</label>
             <select class="form-control" name="slot" id="slot-id">
