@@ -113,5 +113,8 @@ Route::group(['middleware' => ['auth','adminrole']], function() {
     Route::get('deleteshow/{id}', [ShowController::class, 'deleteshows'])->name('deleteshow');
 
 
+     // route for all bookings
     Route::get('allbookings', [BookController::class, 'allBookings'])->name('allbookings');
+    Route::get('cancel_booking/{id}', [BookController::class, 'cancelBooking'])->name('cancelbooking');
+    Route::get('confirm_booking/{id}', [BookController::class, 'confirmBooking'])->name('confirmbooking');
 });

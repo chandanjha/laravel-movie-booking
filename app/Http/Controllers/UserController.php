@@ -67,7 +67,7 @@ class UserController extends Controller
         $attributes = request()->validate([
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'required|digits:10|unique:users,phone', 
+            'phone' => 'required|digits:10', 
             'user_role' => 'required' 
         ]);
 
