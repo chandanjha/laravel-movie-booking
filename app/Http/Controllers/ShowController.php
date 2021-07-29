@@ -19,7 +19,7 @@ class ShowController extends Controller
     public function allshow()
     {
         $show = Show::with('theater','screen','movie')->get();
-        return view('admin.show.allshow', [
+        return view('admin.Show.allshow', [
             "shows" => $show
         ]);
     }
@@ -72,7 +72,6 @@ class ShowController extends Controller
     public function createshow()
     {
         
-
         //validate record
         $attributes = request()->validate([
             'theater_id' => 'required|numeric',
@@ -94,6 +93,7 @@ class ShowController extends Controller
 
         $attributes['seats_available'] = $totalSeats;
         $attributes['created_at'] = now();
+        
         $show = Show::create($attributes);
         
         $seatGold = Seat::create([
@@ -140,7 +140,7 @@ class ShowController extends Controller
 
         $movie = Movie::all();
 
-        return view('admin.show.editshow', [
+        return view('admin.Show.editshow', [
             "shows" => $show,
             "theaters" => $theater,
             "screen" => $screen,
@@ -149,6 +149,7 @@ class ShowController extends Controller
         ]);
     }
 
+    
     public function updateShow($id)
     {
         $oldshow = Show::find($id);
