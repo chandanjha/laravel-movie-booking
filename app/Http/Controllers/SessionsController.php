@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -22,11 +23,14 @@ class SessionsController extends Controller
         //validate record
         $attributes = request()->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required|min:6|max:20',
         ]);
 
+        $rem = request(['remember_me']);
+        $remember_me  = (!empty($rem['remember_me']))? TRUE : FALSE;
+        
         //login 
-        $user = auth()->attempt($attributes);
+        $user = Auth::attempt($attributes);
 
         if(!$user) {
             throw ValidationException::withMessages([
@@ -34,6 +38,18 @@ class SessionsController extends Controller
             ]);
         }
         else {
+
+            if($remember_me)
+            {
+                setcookie('login_email',$attributes['email'],time()+60*60*24*365*10);
+                setcookie('login_password',$attributes['password'],time()+60*60*24*365*10);
+            }
+            else
+            {
+                setcookie('login_email',$attributes['email'],100);
+                setcookie('login_password',$attributes['password'],100);
+            }   
+
             if(auth()->user()->user_role == 'admin')
             {
                 //if user role is admin redirct to admin home
@@ -53,7 +69,7 @@ class SessionsController extends Controller
     //function tp logout
     public function destroy()
     {
-        auth()->logout();
+        Auth::logout();
 
         return redirect('/')->with('success', 'Goodbye!');
     }

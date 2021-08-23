@@ -48,19 +48,16 @@
                 @enderror
             </div><br>
 
-            <div class="form-group col-4">
+            <div class="from-group col-4">
                 <label for="duration">Duration</label>
+                <br>
+                <label for="hour">Hour</label>
+                <input type="number" name="hour" max="4" min="0" id="" value="{{ $hour }}" class="form-control">
+                <label for="minutes">Minute</label>
+                <input type="number" name="minute" max="60" min="0" id="" value="{{ $minute }}" class="form-control">
+            </div>
 
-                <input class="form-control" type="time" name="duration" id="duration" value="{{ $movie->duration }}" value="{{ old('duration') }}" required>
-
-                @error('duration')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div><br>
-
-
+            <br>
             <div class="form-group col-8">
                 <label for="genre_id">Genre</label>
                 <select class="form-control" name="genre_id" id="genre_id">
@@ -105,7 +102,7 @@
             
 
             <div class="form-group">
-                <button class="btn btn-primary btn-sm" type="submit">Edit</button>
+                <button class="btn btn-primary btn-sm" type="submit">Update</button>
             </div><br>
 
         </form>

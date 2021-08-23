@@ -25,8 +25,17 @@ class Theater extends Model
         return $this->belongsTo(Cities::class);
     }
 
+    public function city() {
+        return $this->belongsTo(Cities::class);
+    }
+
     //set relation with states
     public function states() {
+        return $this->belongsTo(States::class);
+    }
+
+    //set relation with states
+    public function state() {
         return $this->belongsTo(States::class);
     }
 

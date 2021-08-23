@@ -78,7 +78,7 @@
                       </div> 
                     </td>
                     <td>{{ $movie->rating }}</td>
-                    <td>{{ $movie->duration }}</td>
+                    <td>{{ substr($movie->duration, 0, 5) }}</td>
                     <td>{{ $movie->release_date }}</td>
                     <td>{{ ucwords($movie->genre->name) }}</td>
                     <td><img src="/movieimage/{{ $movie->movie_banner }}" alt="" width="100" height="100"></td>

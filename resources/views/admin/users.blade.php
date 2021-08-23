@@ -36,7 +36,7 @@
                   <td>{{ $user->created_at }}</td>
                   <td>
                     <div class="btn-group">
-                      <a class="btn btn-success" href="/edituser/{{ $user->id }}"><i class="icon_plus_alt2"></i></a>
+                      <a class="btn btn-success btn-sm" href="/edituser/{{ $user->id }}"><i class="icon_plus_alt2"></i></a>
                       <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete user'); " href="/deleteuser/{{ $user->id }}"><i class="icon_close_alt2"></i></a>
                     </div>
                   </td>

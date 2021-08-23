@@ -56,18 +56,22 @@ class ForgotPasswordController extends Controller
         return redirect('newpassword');
     }
 
+
+
     //function to diplay the otp and the password page
     public function verify() {
         
         return view('sessions.otpverify');
     }
 
+
+
     //function to check otp
     public function getverify() {
         $oldUser = request()->validate([
             'otp' => 'required|exists:forgot_passwords,otp|digits:6',
-            'password' => 'required|min:7|max:255',
-            'confirm_passowrd' => 'required|min:7|max:255'
+            'password' => 'required|min:6|max:20',
+            'confirm_passowrd' => 'required|min:6|max:20'
         ]);
 
         if($oldUser['password'] != $oldUser['confirm_passowrd']) {

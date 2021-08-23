@@ -3,7 +3,7 @@
     <x-nav />
     {{-- Add Cast Page --}}
     <div class="col-5" style="width: 50%; margin:auto; padding: 4%; background-color:darkgrey;color:black; height:auto;">
-        <h1 style="text-align:center;">Movie</h1>
+        <h1 style="text-align:center;">{{ ucwords($movie->name) }}</h1>
         @if($errors->any())      
             @foreach($errors->all() as $error)
                 <div class="alert alert-danger" role="alert">

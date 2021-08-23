@@ -4,7 +4,7 @@
     </div>
 
     <!--logo start-->
-    <a href="index.html" class="logo"><span class="lite">Admin</span></a>
+    <a href="" class="logo"><span class="lite">Admin</span></a>
     <!--logo end-->
 
 
@@ -31,5 +31,6 @@
         </ul>
         <!-- notificatoin dropdown end-->
     </div>
+    
 </header>
 <!--header end-->

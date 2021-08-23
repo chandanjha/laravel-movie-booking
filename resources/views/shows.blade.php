@@ -1,7 +1,13 @@
 <x-layout>
     <x-header />
+    <?php $date = date('Y-m-d') ?>
+        <div style="float: right; width:10%; ">
+            <a href="{{ URL::previous() }}" style="background-color:black; color:white;" class="btn">Back</a>
+        </div>
     <div class="frontend">
+        
         <div class="row">
+            
             <div class="col-lg-12">
                 
 
@@ -23,7 +29,10 @@
 
 
                             @foreach($shows as $show)
+                            
+                            @if($show->show_date >= $date)
                             <tr>
+                                
                                 <td>{{ $i=$i+1 }}</td>
                                 <td>{{ ucwords($show->theater->name) }}</td>
                                 <td>Screen {{ $show->screen_id }}</td>
@@ -50,6 +59,7 @@
                                    <a class="btn btn-primary btm-md" href="/book/{{ $show->id }}">Book</a>
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
