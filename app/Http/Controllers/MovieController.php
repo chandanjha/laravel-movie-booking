@@ -33,26 +33,22 @@ class MovieController extends Controller
     //function to add data to data base
     public function createMovie() {
 
+        
         //validates the data
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255',
+            'name' => 'required|min:1|max:255|regex:/^[\pL\s]+$/u',
             'rating' => 'required|numeric|min:0|max:10',
             'genre_id' => 'required|exists:genres,id',
-            'duration' => 'required',
             'release_date' => 'required',
             'movie_banner' => 'image|mimes:jpg,jpeg,gif,png',
             'movie_poster' => 'image|mimes:jpg,jpeg,gif,png'
-
         ]);
 
-
-        //validation for duration
-        if($attributes['duration'] > '04:30:00') {
-            throw ValidationException::withMessages([
-                'duration' => 'Duration should not be greater than 4:30 hrs'
-            ]);
-        }
-
+        
+        $hour = implode(',',request(['hour']));
+        $minute = implode(',',request(['minute']));
+        $duration = $hour.":".$minute;
+        $attributes['duration'] = $duration;
 
         //validation for dates
         if($attributes['release_date'] > '2023-01-01') {
@@ -115,10 +111,15 @@ class MovieController extends Controller
     //function to redirect to view edit page
     public function editMovie($id) {
         $movie = Movie::find($id);
+        $duration = explode(':',$movie->duration);
+        $hour = $duration[0];
+        $minute = $duration[1];
         $genres = Genre::all();
         return view('admin.movie.editmovie',[
             'movie' => $movie,
-            'genres' => $genres
+            'genres' => $genres,
+            'hour' => $hour,
+            'minute' => $minute
         ]);
     }
 
@@ -131,18 +132,19 @@ class MovieController extends Controller
 
         //valida the data
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255',
+            'name' => 'required|min:1|max:255|regex:/^[\pL\s]+$/u',
             'rating' => 'required|between:0,10',
             'genre_id' => 'required|exists:genres,id',
-            'duration' => 'required',
             'release_date' => 'required',
             'movie_banner' => 'image|mimes:jpg,jpeg,gif,png',
             'movie_poster' => 'image|mimes:jpg,jpeg,gif,png'
 
         ]);
 
-       
-       
+        $hour = implode(',',request(['hour']));
+        $minute = implode(',',request(['minute']));
+        $duration = $hour.":".$minute;
+        $attributes['duration'] = $duration;
 
 
         //validation for the image

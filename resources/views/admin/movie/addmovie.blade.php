@@ -48,19 +48,19 @@
                 @enderror
             </div><br>
 
-            <div class="form-group col-4">
+
+            
+
+            <div class="from-group">
                 <label for="duration">Duration</label>
-
-                <input class="form-control" type="time" name="duration" id="duration" placeholder="Enter Movie duration" value="{{ old('duration') }}" required>
-
-                @error('duration')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div><br>
-
-
+                <br>
+                <label for="hour">Hour</label>
+                <input type="number" name="hour" max="4" min="0" id="" class="form-control">
+                <label for="minute">Minute</label>
+                <input type="number" name="minute" max="60" min="0" id="" class="form-control">
+            </div>
+            <br>
+            
             <div class="form-group col-8">
                 <label for="genre_id">Genre</label>
                 <select class="form-control" name="genre_id" id="genre_id">

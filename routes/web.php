@@ -25,7 +25,8 @@ Route::get('/book/{id}',[FrontEndController::class, 'bookPage'])->middleware('au
 Route::post('book/{id}', [FrontEndController::class, 'confirmBook'])->middleware('auth')->name('confirmbook');
 Route::get('mybookings', [FrontEndController::class, 'myBookings'])->middleware('auth')->name('myBookings');
 Route::get('cancelticket/{id}', [FrontEndController::class, 'cancelTicket'])->middleware('auth')->name('cancelTicket');
-
+Route::get('viewprofile', [FrontEndController::class, 'viewProfile'])->middleware('auth')->name('viewprofile');
+Route::post('editpro/{id}', [FrontEndController::class, 'editProfile'])->middleware('auth')->name('editprofile');
 
 //routes for register
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')->name('register');

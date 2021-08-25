@@ -44,7 +44,6 @@
                     <?= "Evening 3-6" ?>
                     @elseif($show->slot == "slot-4")
                     <?= "Evening 6-9" ?>
-
                     @else
                       <?= "not defined" ?>
                     @endif

@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         //take request data and validate them
         $attributes = request()->validate([
-            'name' => 'required|min:3|max:255',
+            'name' => 'required|min:5|max:30|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users,email',
             'phone' => 'required|digits:10|unique:users,phone'
         ]);
@@ -86,7 +86,7 @@ class RegisterController extends Controller
         //get request data and validate them
         $attributes = request()->validate([
             'otp' => 'required|exists:otp_manages,otp|digits:6',
-            'password' => 'required|min:7|max:255',
+            'password' => 'required|min:6|max:20',
             'confirm_passowrd' => 'required|min:7|max:255'
         ]);
 
@@ -134,7 +134,7 @@ class RegisterController extends Controller
         $register = Register::find($register->id)->delete();
         $verify = OtpManage::find($verify->id)->delete();
         session()->forget('verify');
-        auth()->login($newuser);
+        Auth::login($newuser);
         
         return redirect('/')->with('success', 'Welcome !');
 

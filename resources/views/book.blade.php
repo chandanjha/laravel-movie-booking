@@ -1,6 +1,9 @@
 <x-layout>
     <x-header />
     <div class="frontend">
+    <div style="float: right; width:10%; ">
+            <a href="{{ URL::previous() }}" style="background-color:black; color:white;" class="btn">Back</a>
+        </div>
         <div style="width: 50%; margin:auto; padding: 4%; background-color:darkgrey;color:black; height:auto;">
             <h1>Booking Details</h1>
             <form action="/book/{{ $show->id }}" method="post">

@@ -41,7 +41,7 @@
                                         <td>{{ ucwords($booking->seat_type) }}</td>
                                         <td>{{ $booking->seats_booked }}</td>
                                         <td>{{ $booking->show->show_date }}</td>
-                                        <td>@if($booking->slot == "slot-1")
+                                        <td>@if($booking->show->slot == "slot-1")
                                             <?= "Morning 9-12" ?>
                                             @elseif($booking->show->slot == "slot-2")
                                             <?= "Day 12-3" ?>

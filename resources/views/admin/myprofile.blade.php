@@ -3,7 +3,7 @@
     <x-nav />
     <div style="width: 50%; margin:auto; padding: 4%; background-color:darkgrey;color:black; height:auto;">
         <h1 style="text-align:center">Profile</h1>
-        <form method="POST" action="/editprofile/{{ $user->id }}" class="mt-10">
+        <form method="POST" action="/editprofile/{{ $user->id }}" class="mt-10" autocomplete="off">
 
             @csrf
 
@@ -45,17 +45,7 @@
             </div><br>
 
             
-            <!-- <div class="form-group col-8">
-                <label  for="password">Password</label>
-
-                <input  class="form-control" type="password" name="password" value="{{ $user->password }}" id="password" required>
-
-                @error('password')
-                <div class="alert alert-danger" role="alert">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div><br> -->
+            
 
 
             <div class="form-group">
