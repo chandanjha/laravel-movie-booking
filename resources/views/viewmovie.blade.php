@@ -84,7 +84,7 @@
                         <div class="movie_banner">
                         <a href="/viewmovie/{{ $row->id }}"><img src="/movieimage/{{ $row->movie_banner }}" alt="" width="80%" height="300px"></a>
                         </div>
-                        <h4><a href="/viewmovie/{{ $row->id }}">{{ ucwords($movie->name) }}</a></h4>
+                        <h4><a href="/viewmovie/{{ $row->id }}">{{ ucwords($row->name) }}</a></h4>
                     </div>
                     @endif
                     @if($i >= 3)
