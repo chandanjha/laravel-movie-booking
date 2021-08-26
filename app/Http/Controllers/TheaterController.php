@@ -45,7 +45,7 @@ class TheaterController extends Controller
 
         //validate record
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255|regex:/^[\pL\s]+$/u',
+            'name' => 'required|min:1|max:255|regex:/[a-zA-Z0-9\s]+/',
             'state_id' => 'required',
             'city_id' => 'required',
             'address' => 'required|max:255'
@@ -91,7 +91,7 @@ class TheaterController extends Controller
     public function updateTheater($id) {
         $oldTheater = Theater::find($id);
         $attributes = request()->validate([
-            'name' => 'required|min:5|max:255|regex:/^[\pL\s]+$/u',
+            'name' => 'required|min:5|max:255|regex:/[a-zA-Z0-9\s]+/',
             'state_id' => 'required',
             'city_id' => 'required',
             'address' => 'required|min:5|max:255'

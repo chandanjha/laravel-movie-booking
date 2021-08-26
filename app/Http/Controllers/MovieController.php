@@ -36,7 +36,7 @@ class MovieController extends Controller
         
         //validates the data
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255|regex:/^[\pL\s]+$/u',
+            'name' => 'required|min:1|max:255|regex:/[a-zA-Z0-9\s]+/',
             'rating' => 'required|numeric|min:0|max:10',
             'genre_id' => 'required|exists:genres,id',
             'release_date' => 'required',
@@ -132,7 +132,7 @@ class MovieController extends Controller
 
         //valida the data
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255|regex:/^[\pL\s]+$/u',
+            'name' => 'required|min:1|max:255|regex:/[a-zA-Z0-9\s]+/',
             'rating' => 'required|between:0,10',
             'genre_id' => 'required|exists:genres,id',
             'release_date' => 'required',
