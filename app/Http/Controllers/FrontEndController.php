@@ -9,6 +9,7 @@ use App\Models\Seat;
 use App\Models\Show;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class FrontEndController extends Controller
@@ -28,9 +29,8 @@ class FrontEndController extends Controller
     public function showAll($slug) {
         if($slug == "upcoming"){
             $movies = Movie::where('release_date' , '>',date('Y-m-d'))
-            ->where('release_date','<','2021-09-31')
             ->orderBy('rating','desc')
-            ->orderBy('release_date','desc')->get();
+            ->orderBy('release_date','asc')->get();
             $pageinfo = "upcoming";
         }
         else {
@@ -45,6 +45,33 @@ class FrontEndController extends Controller
         ]);
     }
 
+
+    public function showResult() {
+        if(isset($_COOKIE['pageinfo']))
+        {
+            $pageinfo = $_COOKIE['pageinfo'];
+        }
+        else
+        {
+            $pageinfo = 'upcoming';
+        }
+        if($pageinfo == "upcoming"){
+            $movies = Movie::where('release_date' , '>',date('Y-m-d'))
+            ->orderBy('rating','desc')
+            ->orderBy('release_date','asc')->get();
+            $pageinfo = "upcoming";
+        }
+        else {
+            $movies = Movie::where('release_date' , '<=',date('Y-m-d'))
+            ->orderBy('rating','desc')
+            ->orderBy('release_date','desc')->get();
+            $pageinfo = "released";
+        }
+        return view('allmovies',[
+            'movies' => $movies,
+            'pageinfo' => $pageinfo
+        ]);
+    }
 
     //function to search accordiung to search input
     public function searchResult() {
@@ -105,7 +132,7 @@ class FrontEndController extends Controller
                 $movies = Movie::where('release_date' , '>',date('Y-m-d'))->get();
             }
         }
-
+        setcookie('pageinfo',$pageinfo,time()+60*60*24*365*10);
         return view('allmovies',[
             'movies' => $movies,
             'pageinfo' => $pageinfo
@@ -118,8 +145,21 @@ class FrontEndController extends Controller
     //function to show particular movie
     public function showMovie($id) {
         $movie = Movie::with('genre','cast')->find($id);
-        $movies = Movie::where('genre_id', $movie->genre_id)
+        $releaseDate = $movie->release_date;
+        $today = date('Y-m-d');
+        if($releaseDate > $today)
+        {
+            $movies = Movie::where('genre_id', $movie->genre_id)
+            ->where('release_date','>',date('Y-m-d'))
         ->orderBy('release_date','desc')->get();
+        }
+        else
+        {
+            $movies = Movie::where('genre_id', $movie->genre_id)
+            ->where('release_date','<=',date('Y-m-d'))
+        ->orderBy('release_date','desc')->get();
+        }
+        
         return view('viewmovie',[
             'movie' => $movie,
             'allmovies' => $movies
@@ -130,7 +170,23 @@ class FrontEndController extends Controller
 
     //function to show particular movie
     public function showSlot($id) {
-        // $movie = Movie::find($id);
+        $movie = Movie::find($id);
+        $releaseDate = $movie->release_date;
+        $today = date('Y-m-d');
+        if($releaseDate > $today)
+        {
+            $movies = Movie::where('genre_id', $movie->genre_id)
+            ->where('release_date','>',date('Y-m-d'))
+            ->where('id','!=',$id)
+        ->orderBy('release_date','desc')->get();
+        }
+        else
+        {
+            $movies = Movie::where('genre_id', $movie->genre_id)
+            ->where('release_date','<=',date('Y-m-d'))
+            ->where('id','!=',$id)
+        ->orderBy('release_date','desc')->get();
+        }
         // $date = $movie->release_date; 
         // dd($date = substr($date,5,2));
         // //dd($today = date('m'));
@@ -139,7 +195,9 @@ class FrontEndController extends Controller
         // //dd($result = $today - $date);
         $shows = Show::where('movie_id',$id)->with('theater','screen','movie')->get();
         return view('shows',[
-            'shows' => $shows
+            'shows' => $shows,
+            'movie' => $movie,
+            'allmovies' => $movies
         ]);
     }
 
@@ -209,7 +267,9 @@ class FrontEndController extends Controller
 
     public function myBookings() {
         $user_id = auth()->user()->id;
-        $bookings = Book::where('user_id',$user_id)->where('book_status','confirm')->with('user','show')->get();
+        $bookings = Book::where('user_id',$user_id)->where('book_status','confirm')
+        ->orderBy('booked_at','desc')
+        ->with('user','show')->get();
         return view('bookings', [
             'bookings' => $bookings
         ]);
@@ -267,7 +327,7 @@ class FrontEndController extends Controller
         $user = User::find($id);
         $attributes = request()->validate([
             'name' => 'required|min:5|max:30|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255',
+            'email' => 'bail|required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|max:255',
             'phone' => 'required|digits:10' 
         ]);
 
@@ -295,4 +355,48 @@ class FrontEndController extends Controller
 
         return redirect('/viewprofile');
     }
+
+
+    //function to edit password of my prfile
+    public function changePassword($id) {
+        $oldUser = User::find($id);
+        //validate record
+        $attributes = request()->validate([
+            'current_password' => 'required|min:6|max:20', 
+            'new_password' => 'required|min:6|max:20',
+            'confirm_password' => 'required|min:6|max:20'
+        ]);
+        
+        if($attributes['current_password'] == $attributes['new_password'])
+        {
+            throw ValidationException::withMessages([
+                'current_password' => 'The current password and new passowrd should be different'
+            ]);
+        }
+
+        //checking current password match
+        $matchPassword = Hash::check($attributes['current_password'], $oldUser->password);
+
+        if(!$matchPassword) {
+            throw ValidationException::withMessages([
+                'current_password' => 'Your provided passowrd does not match'
+            ]);
+        }
+
+        //check if new password and confirm passowrd match
+        if($attributes['new_password'] != $attributes['confirm_password']) {
+            throw ValidationException::withMessages([
+                'confirm_password' => 'new password and confirm password does not match'
+            ]);
+        }
+        
+        $attributes['new_password'] = bcrypt($attributes['new_password']);
+
+        $oldUser->update([
+            'password' => $attributes['new_password']
+        ]);
+
+        return redirect('/logout');
+    }
+
 }

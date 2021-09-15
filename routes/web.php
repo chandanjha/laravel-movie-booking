@@ -18,6 +18,7 @@ use App\Models\User;
 //route for front end users 
 Route::get('/', [FrontEndController::class, 'home'])->name('home');
 Route::get('viewmore/{slug}', [FrontEndController::class, 'showAll'])->name('showall');
+Route::get('searchresult', [FrontEndController::class, 'showResult'])->name('search');
 Route::post('searchresult', [FrontEndController::class, 'searchResult'])->name('search');
 Route::get('viewmovie/{id}', [FrontEndController::class, 'showMovie'])->name('showMovie');
 Route::get('showslots/{id}', [FrontEndController::class, 'showSlot'])->middleware('auth')->name('showSlot');
@@ -27,6 +28,7 @@ Route::get('mybookings', [FrontEndController::class, 'myBookings'])->middleware(
 Route::get('cancelticket/{id}', [FrontEndController::class, 'cancelTicket'])->middleware('auth')->name('cancelTicket');
 Route::get('viewprofile', [FrontEndController::class, 'viewProfile'])->middleware('auth')->name('viewprofile');
 Route::post('editpro/{id}', [FrontEndController::class, 'editProfile'])->middleware('auth')->name('editprofile');
+Route::post('changepassword/{id}',[FrontEndController::class, 'changePassword'])->middleware('auth')->name('changepassword');
 
 //routes for register
 Route::get('register', [RegisterController::class, 'create'])->middleware('guest')->name('register');

@@ -52,9 +52,19 @@
                 <label for="duration">Duration</label>
                 <br>
                 <label for="hour">Hour</label>
-                <input type="number" name="hour" max="4" min="0" id="" value="{{ $hour }}" class="form-control">
+                <input type="number" name="hour" id="" value="{{ $hour }}" class="form-control">
+                @error('hour')
+                <div class="alert alert-danger" role="alert">
+                    {{ $message }}
+                </div>
+                @enderror
                 <label for="minutes">Minute</label>
-                <input type="number" name="minute" max="60" min="0" id="" value="{{ $minute }}" class="form-control">
+                <input type="number" name="minute" id="" value="{{ $minute }}" class="form-control">
+                @error('minute')
+                <div class="alert alert-danger" role="alert">
+                    {{ $message }}
+                </div>
+                @enderror
             </div>
 
             <br>

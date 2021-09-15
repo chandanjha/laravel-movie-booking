@@ -42,7 +42,7 @@
             </div><br>
 
             <div class="form-group">
-                <button class="btn btn-primary btn-sm" type="submit">New Password</button>
+                <button class="btn btn-primary btn-sm" type="submit">Submit</button>
             </div><br>
         </form>
     </div>

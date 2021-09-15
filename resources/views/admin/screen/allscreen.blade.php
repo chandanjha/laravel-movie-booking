@@ -14,6 +14,7 @@
         <table class="table table-striped table-advance table-hover">
             <thead>
                 <tr>
+                    <th>Serial No</th>
                     <th>Screen Num:- </th>
                     <th>Gold Row</th>
                     <th>Gold Column</th>
@@ -33,6 +34,7 @@
                 <tr>
                     <?php $i = $i+1 ?>
                     <td>{{ $i }}</td>
+                    <td>{{ $screen->id }}</td>
                     <td>{{ $screen->gold_row }}</td>
                     <td>{{ $screen->gold_column }}</td>
                     <td>{{ $screen->gold_row*$screen->gold_column }}</td>
@@ -52,7 +54,7 @@
         </table>
         </section>
     @else
-    <h1>No Record Found</h1>
+    <h1>No Screen Record Found</h1>
     @endif
     </div>
       </div>

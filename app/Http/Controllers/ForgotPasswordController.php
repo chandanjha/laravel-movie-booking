@@ -46,7 +46,7 @@ class ForgotPasswordController extends Controller
         //sending mail using the mail facade
         Mail::send('email.forgot',$data,function($messages) use ($receiver){
             $messages->to($receiver['to']);
-            $messages->subject('Otp to Register'); 
+            $messages->subject('Otp to Reset Password'); 
         });
 
 
@@ -76,7 +76,7 @@ class ForgotPasswordController extends Controller
 
         if($oldUser['password'] != $oldUser['confirm_passowrd']) {
             throw ValidationException::withMessages([
-                'password' => 'The passoword and confirmpassword does not match'
+                'password' => 'The Passoword and Confirm Password does not match'
             ]);
         }
 

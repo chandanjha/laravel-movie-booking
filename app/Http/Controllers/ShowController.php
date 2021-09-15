@@ -42,20 +42,6 @@ class ShowController extends Controller
         ]);
     }
 
-    // public function date(Request $request)
-    // {
-    //     $request->validate([
-    //         'movie_id' => 'required',
-    //     ]);
-    //     $check = Movie::where('movie_id', $request->id)->first();
-    //     $date = strtotime($check->date);
-    //     if ($date < $request) {
-    //         $data = $request->all();
-    //         Show::create($data);
-    //     } else {
-    //         return back()->with('error date does not matches with release date');
-    //     }
-    // }
 
 
 
@@ -165,11 +151,25 @@ class ShowController extends Controller
         $attributes = request()->validate([
             'theater_id' => 'required|numeric',
             'movie_id' => 'required|numeric',
-            // 'screen_id' => 'required',
-            'slot' => 'required'
+            'screen_id' => 'required',
+            'slot' => 'required',
+            'show_date' => 'required'
 
         ]);
 
+        $movie = Movie::where('id',$attributes['movie_id'])->first();
+
+        $release_date =  $movie->release_date;
+        if($attributes['show_date'] < $release_date)
+        {
+            throw ValidationException::withMessages([
+                'show_date' => 'Show date should be after the movie Release date'
+            ]);
+        }
+        
+        $screen = Screen::where('id', $attributes['screen_id'])->first();
+        $totalSeats =  ($screen->gold_row * $screen->gold_column) + ($screen->platinum_row * $screen->platinum_column) + ($screen->normal_row * $screen->normal_column);
+        $attributes['seats_available'] = $totalSeats;
         $oldshow->update($attributes);
         return redirect('/allshow');
     }

@@ -23,7 +23,7 @@ class CastController extends Controller
     //adds the cast to database
     public function createCast() {
         $attributes = request()->validate([
-            'name' => 'max:255',
+            'name' => 'min:5|max:60|regex:/^[\pL\s]+$/u',
             'movie_id' => 'max:255',
             'type' => 'max:255'
         ]);

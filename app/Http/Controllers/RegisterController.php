@@ -32,8 +32,8 @@ class RegisterController extends Controller
 
         //take request data and validate them
         $attributes = request()->validate([
-            'name' => 'required|min:5|max:30|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255|unique:users,email',
+            'name' => 'required|min:5|max:60|regex:/^[\pL\s]+$/u',
+            'email' => 'bail|required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|max:255|unique:users,email',
             'phone' => 'required|digits:10|unique:users,phone'
         ]);
         
@@ -87,12 +87,12 @@ class RegisterController extends Controller
         $attributes = request()->validate([
             'otp' => 'required|exists:otp_manages,otp|digits:6',
             'password' => 'required|min:6|max:20',
-            'confirm_passowrd' => 'required|min:7|max:255'
+            'confirm_passowrd' => 'required|min:6|max:20'
         ]);
 
         if($attributes['password'] != $attributes['confirm_passowrd']) {
             throw ValidationException::withMessages([
-                'password' => 'The passoword and confirmpassword does not match'
+                'password' => 'The Passoword and Confirm Password does not match'
             ]);
         }
 

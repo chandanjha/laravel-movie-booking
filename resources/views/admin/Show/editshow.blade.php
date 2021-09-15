@@ -26,7 +26,7 @@
             <label for="screen_id">Screen</label>
 
             <select name="screen_id" class="form-control" id="screen_id">
-                <option value="$shows->screen_id">{{ $shows->screen_id }}</option>
+                <option value="{{ $shows->screen_id }}">{{ $shows->screen_id }}</option>
             </select>
             @error('screen_id')
             <div class="alert alert-danger" role="alert">

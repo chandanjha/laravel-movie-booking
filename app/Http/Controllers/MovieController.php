@@ -36,12 +36,17 @@ class MovieController extends Controller
         
         //validates the data
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255|regex:/[a-zA-Z0-9\s]+/',
+            'name' => 'required|min:1|max:255|regex:/^[A-Za-z0-9 ,.-]+$/',
             'rating' => 'required|numeric|min:0|max:10',
             'genre_id' => 'required|exists:genres,id',
             'release_date' => 'required',
             'movie_banner' => 'image|mimes:jpg,jpeg,gif,png',
             'movie_poster' => 'image|mimes:jpg,jpeg,gif,png'
+        ]);
+
+        $checkDuration = request()->validate([
+            'hour' => 'required|numeric|min:0|max:4',
+            'minute' => 'required|numeric|min:0|max:59',
         ]);
 
         
@@ -132,13 +137,18 @@ class MovieController extends Controller
 
         //valida the data
         $attributes = request()->validate([
-            'name' => 'required|min:1|max:255|regex:/[a-zA-Z0-9\s]+/',
-            'rating' => 'required|between:0,10',
+            'name' => 'required|min:1|max:255|regex:/^[A-Za-z0-9 ,.-]+$/',
+            'rating' => 'required|numeric|min:0|max:10',
             'genre_id' => 'required|exists:genres,id',
             'release_date' => 'required',
             'movie_banner' => 'image|mimes:jpg,jpeg,gif,png',
             'movie_poster' => 'image|mimes:jpg,jpeg,gif,png'
 
+        ]);
+
+        $checkDuration = request()->validate([
+            'hour' => 'required|numeric|min:0|max:4',
+            'minute' => 'required|numeric|min:0|max:59',
         ]);
 
         $hour = implode(',',request(['hour']));

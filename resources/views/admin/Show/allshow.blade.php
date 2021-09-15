@@ -1,7 +1,7 @@
 <x-layout>
   <x-admin_header />
   <x-nav />
-
+  <?php $date = date('Y-m-d') ?>
   {{-- All Show Display --}}
   <section id="main-content">
     <section class="wrapper">
@@ -29,6 +29,7 @@
 
 
                 @foreach($shows as $show)
+                @if($show->show_date >= $date)
                 <tr>
                   <td>{{ $i=$i+1 }}</td>
                   <td>{{ ucwords($show->theater->name) }}</td>
@@ -56,6 +57,7 @@
                     <a class="btn btn-danger btn-sm" onClick="javascript: alert('Are you sure you want to delete show'); " href="/deleteshow/{{ $show->id }}"><i class="icon_close_alt2"></i></a>
                   </td>
                 </tr>
+                @endif
                 @endforeach
               </tbody>
             </table>
