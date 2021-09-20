@@ -1,5 +1,6 @@
 <x-layout>
     <x-header />
+    <?php $date = date('Y-m-d') ?>
     <div class="frontend">
 
         <div style="float: right; width:10%; ">
@@ -16,7 +17,21 @@
                 <h2>Name: <i>{{ucwords($movie->name) }}</i></h2>
                 <h2>Duration: <i>{{ substr($movie->duration, 0, 2) }} HRS {{ substr($movie->duration, 3, 2) }} Min</i></h2>
                 <h2>Rating: <i>{{ $movie->rating }}</i></h2>
-                <h2>Synopsis: <i>This movie is a {{ $movie->genre->name }} movie</i></h2>
+                @php
+                $tense = $movie->genre->name[0];
+                if($tense == 'a' || $tense == 'e'|| $tense == 'i'|| $tense == 'o'|| $tense == 'u')
+                {
+                    $preposition = 'an';
+                }
+                else
+                {
+                    $preposition = 'a';
+                }
+                @endphp
+                @if($movie->release_date > $date)
+                
+                <h2>Synopsis: <i>This movie is {{ $preposition }} {{ $movie->genre->name }} movie</i></h2>
+                @endif
                 <h2>Release Date: <i>{{ $movie->release_date }}</i></h2>
                 <h2>Genre: <i>{{ ucwords($movie->genre->name) }}</i></h2>
             </div>
@@ -64,7 +79,13 @@
 
         <div class="row" style="height: 10px;">
             <div class="pull-right">
-                <a class="btn btn-primary btn-lg" href="/showslots/{{ $movie->id }}">Shows</a>
+                <a class="btn btn-primary btn-lg" href="/showslots/{{ $movie->id }}">
+                    @if($movie->release_date > $date)
+                        Advance Booking
+                    @else
+                        Book Now
+                    @endif
+                </a>
             </div>
         </div>
         

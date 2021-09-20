@@ -1,52 +1,121 @@
 <x-layout>
 
 <x-header />
+<?php $date = date('Y-m-d') ?>
+    <div style="float: right; width:10%; margin-top:60px;">
+        <a href="{{ URL::previous() }}" style="background-color:black; color:white;" class="btn">Back</a>
+    </div>
     <div class="frontend">
-        <div class="row" id="ticketcontent">
-            <div class="col-lg-12">
-                @if(count($bookings) > 0)
 
-                @foreach($bookings as $booking)
-                @if($booking->book_status == "confirm")
-                <div class="tickets" style="background-color: #999;
-                            width:50%; color:black; padding:1%;
-                            margin:auto; margin-top:2%;">
-                    <h3>Movie: <i>{{ ucwords($booking->show->movie->name) }}</i></h3>
-                    <h3>Movie Duration: <i>{{ substr($booking->show->movie->duration, 0, 2) }} HRS {{ substr($booking->show->movie->duration, 3, 2) }} Min</i></h3>
-                    <h3>Rating: <i>{{$booking->show->movie->rating}}</i></h3>
-                    <h3>Multiplex: <i>{{ ucwords($booking->show->theater->name) }}</i></h3>
-                    <h4>({{ $booking->show->theater->state->name }})</h4>
-                    <h4>({{ $booking->show->theater->city->name }})</h4>
-                    <h3>Screen: <i>{{ $booking->show->screen_id }}</i></h3>
-                    <h3>Seat Type: <i>{{ ucwords($booking->seat_type) }}</i></h3>
-                    <h3>Total Seats Booked: <i>{{ $booking->seats_booked }}</i></h3>
-                    <h3>Show Date: <i>{{ $booking->show->show_date }}</i></h3>
-                    @if($booking->show->slot == "slot-1")
-                    <?php $slot = "Morning 9-12" ?>
-                    @elseif($booking->show->slot == "slot-2")
-                    <?php $slot = "Day 12-3" ?>
-                    @elseif($booking->show->slot == "slot-3")
-                    <?php $slot = "Evening 3-6" ?>
-                    @elseif($booking->show->slot == "slot-4")
-                    <?php $slot = "Evening 6-9" ?>
-
-                    @else
-                    <?php $slot = "not defined" ?>
-                    @endif
-                    <h3>Time Slot: <i>{{ $slot }}</i></h3>
-                    <h3>Booking On: <i>{{ $booking->booked_at }}</i></h3>
-                    <h3>Status:- <i>{{ ucwords($booking->book_status) }}</i></h3>
-
-
-                    <a class="btn btn-primary btn-lg" onClick="javascript: alert('Are you sure you want to cancel booking'); " href="/cancelticket/{{ $booking->id }}">Cancel</a>
+        <div class="row">
+            <h1>My Bookings</h1>
+            @if(count($bookings) > 0)
+            
+            
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <h2>Recent Bookings</h2>
                 </div>
 
-                @endif
-                @endforeach
-                @else
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <section class="panel">
+                        <table class="table table-striped table-advance table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>S.no</td>
+                                    <td>Movie</td>
+                                    <td>Theater</td>
+                                    <td>Show</td>
+                                    <td>Total Tickets</td>
+                                    <td>State/City</td>
+                                    <td><i class="icon_cogs"></i>Cancel</th>
+                                </tr>
+                                <?php $i = 0 ?>
+                                @foreach($bookings as $booking)
+                                    @if($booking->show->show_date >= $date)
+                                    <tr>
+                                        <td>{{ $i=$i+1 }}</td>
+                                        <td>{{ ucwords($booking->show->movie->name) }}</td>  
+                                        <td>{{ ucwords($booking->show->theater->name) }}</td>
+                                        @if($booking->show->slot == "slot-1")
+                                        <?php $slot = "Morning 9-12" ?>
+                                        @elseif($booking->show->slot == "slot-2")
+                                        <?php $slot = "Day 12-3" ?>
+                                        @elseif($booking->show->slot == "slot-3")
+                                        <?php $slot = "Evening 3-6" ?>
+                                        @elseif($booking->show->slot == "slot-4")
+                                        <?php $slot = "Evening 6-9" ?>
+
+                                        @else
+                                        <?php $slot = "not defined" ?>
+                                        @endif
+                                        <td>{{ $booking->show->show_date }}/{{ $slot }}</td>
+                                        <td>{{ $booking->seats_booked }}</td>
+                                        <td>{{ $booking->show->theater->state->name }}/{{ $booking->show->theater->city->name }}</td>
+                                        <td><a class="btn btn-primary btn-sm" onClick="javascript: alert('Are you sure you want to cancel booking'); " href="/cancelticket/{{ $booking->id }}">Cancel</a></td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @if($i == 0)
+                            <h2>No Recent Bookings</h2>
+                        @endif
+                    </section>
+                </div>
+
+                <div class="col-lg-12" style="margin-top: 10px;">
+                    <h2>Previous Bookings</h2>
+                </div>
+
+                <div class="col-lg-12" style="margin-top: 10px;">    
+                    <section class="panel">
+                        <table class="table table-striped table-advance table-hover">
+                            <tbody>
+                                <tr>
+                                    <td>S.no</td>
+                                    <td>Movie</td>
+                                    <td>Theater</td>
+                                    <td>Show</td>
+                                    <td>Total Tickets</td>
+                                    <td>State/City</td>
+                                    <td><i class="icon_cogs"></i>Cancel</th>
+                                </tr>
+                                <?php $i = 0 ?>
+                                @foreach($bookings as $booking)
+                                    @if($booking->show->show_date < $date)
+                                    <tr>
+                                        <td>{{ $i=$i+1 }}</td>
+                                        <td>{{ ucwords($booking->show->movie->name) }}</td>  
+                                        <td>{{ ucwords($booking->show->theater->name) }}</td>
+                                        @if($booking->show->slot == "slot-1")
+                                        <?php $slot = "Morning 9-12" ?>
+                                        @elseif($booking->show->slot == "slot-2")
+                                        <?php $slot = "Day 12-3" ?>
+                                        @elseif($booking->show->slot == "slot-3")
+                                        <?php $slot = "Evening 3-6" ?>
+                                        @elseif($booking->show->slot == "slot-4")
+                                        <?php $slot = "Evening 6-9" ?>
+
+                                        @else
+                                        <?php $slot = "not defined" ?>
+                                        @endif
+                                        <td>{{ $booking->show->show_date }}/{{ $slot }}</td>
+                                        <td>{{ $booking->seats_booked }}</td>
+                                        <td>{{ $booking->show->theater->state->name }}/{{ $booking->show->theater->city->name }}</td>
+                                        <td><a class="btn btn-primary btn-sm" onClick="javascript: alert('Are you sure you want to cancel booking'); " href="/cancelticket/{{ $booking->id }}">Cancel</a></td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @if($i == 0)
+                            <h2>No Previous Bookings</h2>
+                        @endif
+                    </section>    
+                </div>
+            @else
                 <h1>No Bookings</h1>
-                @endif
-            </div>
+            @endif
         </div>
     </div>
 </x-layout>

@@ -30,9 +30,9 @@ class UserController extends Controller
     //function to add user
     public function adduser() {
         $attributes = request()->validate([
-            'name' => 'required|min:5|max:60|regex:/[a-zA-Z\s]+/',
-            'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:7|max:255',
+            'name' => 'required|min:5|max:60||regex:/^[\pL\s]+$/u',
+            'email' => 'bail|required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|max:255|unique:users,email',
+            'password' => 'required|min:6|max:20',
             'phone' => 'required|digits:10|unique:users,phone',
             'user_role' => 'required' 
         ]);
@@ -66,7 +66,7 @@ class UserController extends Controller
         $oldUser = User::find($id);
         $attributes = request()->validate([
             'name' => 'required|min:5|max:60|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255',
+            'email' => 'bail|required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|max:255',
             'phone' => 'required|digits:10', 
             'user_role' => 'required' 
         ]);
@@ -129,7 +129,7 @@ class UserController extends Controller
         if($attributes['current_password'] == $attributes['new_password'])
         {
             throw ValidationException::withMessages([
-                'current_password' => 'The current password and new passowrd match'
+                'current_password' => 'The current password and new passowrd should be different'
             ]);
         }
 
@@ -165,7 +165,7 @@ class UserController extends Controller
 
         $attributes = request()->validate([
             'name' => 'required|min:5|max:60|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255',
+            'email' => 'bail|required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|max:255',
             'phone' => 'required|digits:10' 
         ]);
 

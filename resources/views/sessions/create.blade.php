@@ -23,6 +23,8 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon_profile"></i></span>
                     <input type="email" name="email" class="form-control" id="email" placeholder="Enter Email" value="{{ $login_email }}" value="{{ old('email') }}"  required>
+                </div>
+                <div>
                     @error('email')
                     <div class="alert alert-danger" role="alert">
                         {{ $message }}
@@ -35,8 +37,8 @@
                     <span class="input-group-addon"> <i class="fa fa-fw fa-eye" 
                     onclick="myFunction()"
                     ></i></span>
-                    
-                    
+                </div>
+                <div>
                     @error('password')
                     <div class="alert alert-danger" role="alert">
                         {{ $message }}

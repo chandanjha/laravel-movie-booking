@@ -1,6 +1,9 @@
 <x-layout>
 <x-admin_header />
     <x-nav />
+    <div style="float: right; width:10%; margin-top: 130px;">
+        <a href="{{ URL::previous() }}" style="background-color:black; color:white;" class="btn">Back</a>
+    </div>
     <div style="width: 50%; margin:auto; padding: 4%; background-color:darkgrey;color:black; height:auto;">
         <h1 style="text-align:center">Profile</h1>
         <form method="POST" action="/editprofile/{{ $user->id }}" class="mt-10" autocomplete="off">

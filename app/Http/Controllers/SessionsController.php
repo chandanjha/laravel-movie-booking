@@ -3,17 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
 
 class SessionsController extends Controller
 {
 
     //function to redirect to login lpage
-    public function create() {
+    public function create(Request $request) {
+        
+        $path =  URL::previous();
+        $position = explode('/',$path);
+        if(isset($position[3]))
+        {
+            $page = $position[3];
+            if($page == "viewmore")
+            {
+                if(isset($position[4]))
+                {
+                    $finalpath = $position[3].'/'.$position[4];
+                }
+            }
+            else if($page == "viewmovie")
+            {
+                if(isset($position[4]))
+                {
+                    $finalpath = 'showslots/'.$position[4];
+                }
+            }
+            else
+            {
+                $finalpath = null;
+            }
+        }
+
+        if(isset($finalpath))
+        {
+            setcookie('pagename',$finalpath,time()+60*60*24*365*10);
+        }
         return view('sessions.create');
     }
 
@@ -22,7 +54,7 @@ class SessionsController extends Controller
 
         //validate record
         $attributes = request()->validate([
-            'email' => 'required|email',
+            'email' => 'bail|required|email|regex:/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix|exists:users,email',
             'password' => 'required|min:6|max:20',
         ]);
 
@@ -50,7 +82,14 @@ class SessionsController extends Controller
                 setcookie('login_password',$attributes['password'],100);
             }   
 
-            if(auth()->user()->user_role == 'admin')
+            if(isset($_COOKIE['pagename']))
+            {
+                $path = $_COOKIE['pagename'];
+                setcookie('pagename','',100);
+                return redirect('/'.$path);
+
+            }
+            else if(auth()->user()->user_role == 'admin')
             {
                 //if user role is admin redirct to admin home
                 return redirect('/admin_index')->with('success', 'Welcome Back!');

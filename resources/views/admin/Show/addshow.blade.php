@@ -78,7 +78,7 @@
             
             <div class="form-group">
                 <button class="btn btn-primary btn-sm" type="submit">Add</button>
-                <button class="btn btn-danger btn-sm" type="reset">Reset</button>
+                <a class="btn btn-danger btn-sm" href="/addshow">Reset</a>
             </div><br>
 
         </form>

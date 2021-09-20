@@ -15,7 +15,7 @@
                     @if($movie->release_date <= $date)
                     <?php $i = $i + 1 ?>
                     <div class="item text-center {{ $i == '1' ? 'active':'' }}">
-                    <a href="/viewmovie/{{ $movie->id }}"><img src="/movieimage/{{ $movie->movie_poster }}" alt="" style="width:100%; height:250px"></a>
+                    <a href="/viewmovie/{{ $movie->id }}"><img src="/movieimage/{{ $movie->movie_banner }}" alt="" style="width:100%; height:250px"></a>
                     <div class="text"><a href="/viewmovie/{{ $movie->id }}">{{ ucwords($movie->name) }}</a></div>
                     </div>
                     @endif
